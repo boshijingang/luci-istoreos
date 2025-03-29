@@ -4713,6 +4713,10 @@ msgstr "内核日志"
 msgid "Kernel Version"
 msgstr "内核版本"
 
+#: modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js:69
+msgid "CPU usage (%)"
+msgstr "CPU 使用率（%）"
+
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js:1520
 msgid "Key"
 msgstr "密钥"

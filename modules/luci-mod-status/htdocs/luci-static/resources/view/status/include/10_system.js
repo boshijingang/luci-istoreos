@@ -20,14 +20,16 @@ return baseclass.extend({
 		return Promise.all([
 			L.resolveDefault(callSystemBoard(), {}),
 			L.resolveDefault(callSystemInfo(), {}),
-			fs.lines('/usr/lib/lua/luci/version.lua')
+			fs.lines('/usr/lib/lua/luci/version.lua'),
+			fs.exec('/sbin/usage')
 		]);
 	},
 
 	render: function(data) {
 		var boardinfo   = data[0],
 		    systeminfo  = data[1],
-		    luciversion = data[2];
+		    luciversion = data[2],
+		    cpuUsage    = data[3];  // 获取到的 CPU 占用率
 
 		luciversion = luciversion.filter(function(l) {
 			return l.match(/^\s*(luciname|luciversion)\s*=/);
@@ -63,7 +65,8 @@ return baseclass.extend({
 				systeminfo.load[0] / 65535.0,
 				systeminfo.load[1] / 65535.0,
 				systeminfo.load[2] / 65535.0
-			) : null
+			) : null,
+			_('CPU usage (%)'),        cpuUsage.stdout || '?'  // 添加 CPU 使用率
 		];
 
 		var table = E('table', { 'class': 'table' });
